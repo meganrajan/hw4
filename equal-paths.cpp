@@ -13,6 +13,33 @@ using namespace std;
 bool equalPaths(Node * root)
 {
     // Add your code below
+    if(root == nullptr) {
+        return true;
+    }
 
+    int leafDepth = -1;
+    return checkEqualPaths(root, 1, leafDepth);
+    
+}
+
+bool checkEqualPaths(Node* root, int depth, int &leafDepth) {
+
+    if(root == NULL) {
+        return true;
+    }
+
+    if(root->left == NULL && root->right == NULL) {
+        if(leafDepth == -1) {
+            leafDepth = depth;
+            return true;
+        }
+
+        return depth == leafDepth;
+    }
+
+    bool left = checkEqualPaths(root->left, depth + 1, leafDepth);
+    bool right = checkEqualPaths(root->right, depth + 1, leafDepth);
+
+    return left && right;
 }
 
